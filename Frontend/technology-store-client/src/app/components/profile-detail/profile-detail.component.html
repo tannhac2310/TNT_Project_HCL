@@ -5,10 +5,7 @@
       <div class="col-lg-6">
         <div class="content text-center">
           <h1 class="mb-3">Profile</h1>
-          <p>
-            Hath after appear tree great fruitful green dominion moveth sixth
-            abundantly image that midst of god day multiply you’ll which
-          </p>
+          <p>Information</p>
 
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent justify-content-center">
@@ -27,69 +24,100 @@
 <section class="user-dashboard page-wrapper">
   <div class="container">
     <div class="row">
-      <div class="col-12 col-md-5 col-sm-12 col-lg-3">
-        <app-menu-info></app-menu-info>
-      </div>
-      <div class="col-12 col-md-7 col-sm-12 col-lg-9">
+      <div class="col-12 col-md-7 col-sm-12 col-lg-12">
         <div class="tab-pane fade show active" id="settings" role="tabpanel">
           <div class="acccount-settings">
-            <h4 class="mb-4">Account information</h4>
-            <form action="#">
+            <h1 class="mb-4 text-center">Profile</h1>
+            <form>
+              <div class="form-group mb-4">
+                <label>Full name </label>
+                <input
+                  name="name"
+                  type="text"
+                  class="form-control"
+                  value="DAN"
+                />
+              </div>
               <div class="form-row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label>First Name</label>
+                    <label>Age</label>
                     <input
+                      name="age"
                       type="text"
                       class="form-control"
-                      placeholder="John"
+                      value="20"
                     />
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label>Last Name</label>
-                    <input type="text" class="form-control" placeholder="Jas" />
+                    <label>Gender</label>
+                    <input
+                      name="gender"
+                      type="text"
+                      class="form-control"
+                      value="X"
+                    />
                   </div>
                 </div>
-              </div>
-
-              <div class="form-group mb-4">
-                <label>Display name </label>
-                <input type="text" class="form-control" placeholder="Jassa" />
-                <p class="mt-2">
-                  This will be how your name will be displayed in the account
-                  section and in reviews
-                </p>
               </div>
               <div class="form-group mb-4">
                 <label>Email address </label>
                 <input
+                  name="email"
                   type="text"
                   class="form-control"
-                  placeholder="groupB@gmail.com"
+                  value="dan@gmail.com"
                 />
               </div>
+              <div class="form-group mb-4">
+                <label>Phone number </label>
+                <input
+                  name="phone"
+                  type="text"
+                  class="form-control"
+                  value="0909xxxxxx"
+                />
+              </div>
+              <div class="form-group mb-4">
+                <label>Address </label>
+                <input
+                  name="address"
+                  type="text"
+                  class="form-control"
+                  value="TP HCM"
+                />
+              </div>
+              <button
+                href="#"
+                class="btn btn-main mt-3 btn-block btn-dark"
+                (click)="onSubmit()"
+              >
+                Save Changes
+              </button>
+              <small class="text-danger text-center">Something wrong</small>
             </form>
 
-            <form action="#" class="mt-5">
-              <h4>Password change</h4>
+            <!-- <form action="#" class="mt-5">
+                <h4>Password change</h4>
 
-              <div class="form-group">
-                <label>Current password </label>
-                <input type="text" class="form-control" placeholder="" />
-              </div>
-              <div class="form-group">
-                <label>New password</label>
-                <input type="text" class="form-control" placeholder="" />
-              </div>
-              <div class="form-group">
-                <label>Confirm password</label>
-                <input type="text" class="form-control" placeholder="" />
-              </div>
+                <div class="form-group">
+                  <label >Current password </label>
+                  <input type="text" class="form-control" placeholder="">
+                  
+                </div>
+                <div class="form-group">
+                  <label >New password</label>
+                  <input type="text" class="form-control" placeholder="">
+                </div>
+                <div class="form-group">
+                  <label >Confirm password</label>
+                  <input type="text" class="form-control" placeholder="">
+                </div>
 
-              <a href="#" class="btn btn-dark">Save Changes</a>
-            </form>
+                <a href="#" class="btn btn-main mt-3 btn-block btn-dark">Save Changes</a>
+              </form> -->
           </div>
         </div>
       </div>

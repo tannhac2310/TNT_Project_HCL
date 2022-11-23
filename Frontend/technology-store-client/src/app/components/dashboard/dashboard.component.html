@@ -5,16 +5,13 @@
       <div class="col-lg-6">
         <div class="content text-center">
           <h1 class="mb-3">Dashboard</h1>
-          <p>
-            Hath after appear tree great fruitful green dominion moveth sixth
-            abundantly image that midst of god day multiply you’ll which
-          </p>
+          <p>Only For Admin</p>
 
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent justify-content-center">
               <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">
-                Dashboard
+                Product Mangament
               </li>
             </ol>
           </nav>
@@ -26,13 +23,128 @@
 
 <section class="user-dashboard page-wrapper">
   <div class="container">
-    <div class="row">
-      <div class="col-12 col-md-5 col-sm-12 col-lg-3">
-        <app-menu-info></app-menu-info>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Image</th>
+          <th scope="col">Description</th>
+          <th scope="col">Amout</th>
+          <th scope="col">Status</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <th scope="row">{{ product.name }}</th>
+          <td>{{ product.price }}</td>
+          <td>
+            <img src="{{ product.imageUrls }}" class="w-25 h-25" alt="" />
+          </td>
+          <td>Apple Product</td>
+          <td>2</td>
+          <td>Available</td>
+          <td>
+            <button class="btn btn-dark btn-main">Edit</button>
+            <p></p>
+            <button class="btn btn-dark btn-main">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <form action="#">
+      <form class="ordering">
+        <label for="#">Categories</label>
+        <select class="orderby form-control">
+          <option>Categories</option>
+          <option value="{{ item.id }}" *ngFor="let item of category">
+            {{ item.name }}
+          </option>
+          <!-- <option value="" selected="selected">All</option>
+            <option value="" *ngFor="let item of category">{{item.name}}</option> -->
+        </select>
+        <input type="hidden" name="paged" value="1" />
+      </form>
+      <div class="form-group mb-4">
+        <label for="#">Enter Product Name</label>
+        <input
+          name="name"
+          value="Apple Watch"
+          type="text"
+          class="form-control"
+          placeholder="Enter Product Name"
+        />
       </div>
-
-      <div class="col-12 col-md-7 col-sm-12 col-lg-9">
-        <p>GROUP TNT</p>
+      <div class="form-group mb-4">
+        <label for="#">Image</label>
+        <input
+          name="image"
+          value=""
+          type="text"
+          class="form-control"
+          placeholder="Image"
+        />
+      </div>
+      <div class="form-group mb-4">
+        <label for="#">Enter Description</label>
+        <input
+          name="description"
+          value="Apple Product"
+          type="text"
+          class="form-control"
+          placeholder="Enter Description"
+        />
+      </div>
+      <div class="form-group mb-4">
+        <label for="#">Enter Price</label>
+        <input
+          name="price"
+          value="999"
+          type="text"
+          class="form-control"
+          placeholder="Enter Price"
+        />
+      </div>
+      <div class="form-group mb-4">
+        <label for="#">Enter Amount</label>
+        <input
+          name="amount"
+          value="2"
+          type="text"
+          class="form-control"
+          placeholder="Enter Amount"
+        />
+      </div>
+      <div class="form-group mb-4">
+        <label for="#">Enter Status</label>
+        <input
+          name="status"
+          value="Available"
+          type="text"
+          class="form-control"
+          placeholder="Enter Status"
+        />
+      </div>
+      <div class="form-group mb-4">
+        <label for="#">Enter SaleOff</label>
+        <input
+          name="saleOff"
+          value="0"
+          type="text"
+          class="form-control"
+          placeholder="Enter SaleOff"
+        />
+      </div>
+    </form>
+    <div class="row">
+      <div class="col-lg-6">
+        <button class="btn btn-block btn-main btn-dark">Save create</button>
+        <small class="text-danger text-center">Wrong</small>
+      </div>
+      <div class="col-lg-6">
+        <button class="btn btn-block btn-main btn-dark">Save Edit</button>
+        <small class="text-danger text-center">ERROR</small>
       </div>
     </div>
   </div>
