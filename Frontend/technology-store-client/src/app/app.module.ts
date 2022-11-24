@@ -1,30 +1,34 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 
-import { FooterComponent } from './components/footer/footer.component';
-import { HeaderComponent } from './components/header/header.component';
-import { ProductSingleComponent } from './components/product-single/product-single.component';
-import { CartComponent } from './components/cart/cart.component';
-import { ProductComponent } from './components/product/product.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { OrdersComponent } from './components/orders/orders.component';
-import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
-import { ProfileDetailComponent } from './components/profile-detail/profile-detail.component';
-import { OrderDetailComponent } from './components/order-detail/order-detail.component';
+import { FooterComponent } from './component/footer/footer.component';
+import { HeaderComponent } from './component/header/header.component';
+import { HomeComponent } from './component/home/home.component';
+import { ProductsingleComponent } from './component/productsingle/productsingle.component';
+import { CartComponent } from './component/cart/cart.component';
+import { CheckoutComponent } from './component/checkout/checkout.component';
+import { ProductComponent } from './component/product/product.component';
+import { DashboardComponent } from './component/dashboard/dashboard.component';
+import { OrdersComponent } from './component/orders/orders.component';
+import { LoginComponent } from './component/login/login.component';
+import { SignupComponent } from './component/signup/signup.component';
+import { ProfileDetailComponent } from './component/profile-detail/profile-detail.component';
+import { OrderDetailComponent } from './component/order-detail/order-detail.component';
+import { MenuInfoComponent } from './component/menu-info/menu-info.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
     HeaderComponent,
-    ProductSingleComponent,
+    HomeComponent,
+    ProductsingleComponent,
     CartComponent,
+    CheckoutComponent,
     ProductComponent,
     DashboardComponent,
     OrdersComponent,
@@ -32,16 +36,14 @@ import { OrderDetailComponent } from './components/order-detail/order-detail.com
     SignupComponent,
     ProfileDetailComponent,
     OrderDetailComponent,
+    MenuInfoComponent
   ],
   imports: [
     BrowserModule,
     SlickCarouselModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
+    AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
