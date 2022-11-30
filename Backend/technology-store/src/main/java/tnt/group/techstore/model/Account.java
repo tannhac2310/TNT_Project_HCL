@@ -7,11 +7,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@Entity
+@Table(name = "account")
 public class Account {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	private Long id;
+	@Column(name = "username")
 	private String username;
+	@Column(name = "password")
 	private String password;
+	@Column(name = "role")
 	private String role;
+	@Column(name = "status")
 	private String status;
 	public Account() {}
 
@@ -53,5 +62,11 @@ public class Account {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role
+				+ ", status=" + status + "]";
+	}		
 }
