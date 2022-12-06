@@ -5,37 +5,48 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tnt.group.techstore.exception.ResourceNotFoundException;
 import tnt.group.techstore.model.Account;
 import tnt.group.techstore.repository.AccountRepository;
 import tnt.group.techstore.service.AccountService;
 
 @Service
-public class AccountServiceImpl implements AccountService {
+public class AccountServiceImpl implements AccountService{
+
 	@Autowired
-	private AccountRepository accountRepository;
-	
+	private AccountRepository accountRepo;
+
 	@Override
 	public List<Account> getAllAccounts() {
-		// TODO Auto-generated method stub
-		return accountRepository.findAll();
+		return accountRepo.findAll();
 	}
 
 	@Override
 	public Account getAccountById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return accountRepo.findById(id).orElseThrow(() -> 
+		new ResourceNotFoundException("Account", "Id", id));
 	}
 
 	@Override
 	public Account updateAccount(Account account, long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Account existingAccount = accountRepo.findById(id).orElseThrow(() -> 
+		new ResourceNotFoundException("Account", "Id", id));
+		if(account.getUsername()!=null){
+			existingAccount.setUsername(account.getUsername());
+		}
+		if(account.getPassword()!=null){
+			existingAccount.setPassword(account.getPassword());
+		}
+		existingAccount.setRole(account.getRole());
+		existingAccount.setStatus(account.getStatus());
+		accountRepo.save(existingAccount);
+		return existingAccount;
 	}
 
 	@Override
 	public void deleteAccount(long id) {
-		// TODO Auto-generated method stub
-		
+		accountRepo.findById(id).orElseThrow(() -> 
+		new ResourceNotFoundException("Account", "Id", id));
+		accountRepo.deleteById(id);
 	}
-
 }

@@ -4,7 +4,6 @@ import java.util.List;
 import tnt.group.techstore.model.Account;
 
 public interface AccountService {
-
 	//User
 	List<Account> getAllAccounts();
 	Account getAccountById(long id);

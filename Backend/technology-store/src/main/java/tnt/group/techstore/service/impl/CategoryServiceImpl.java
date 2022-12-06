@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tnt.group.techstore.exception.ResourceNotFoundException;
 import tnt.group.techstore.model.Category;
 import tnt.group.techstore.repository.CategoryRepository;
 import tnt.group.techstore.service.CategoryService;
@@ -21,26 +22,37 @@ public class CategoryServiceImpl implements CategoryService{
 
 	@Override
 	public Category getCategoryById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return categoryRepository.findById(id).orElseThrow(() -> 
+		new ResourceNotFoundException("Category", "Id", id));
 	}
 
 	@Override
 	public Category createCategory(Category category) {
-		// TODO Auto-generated method stub
-		return null;
+		return categoryRepository.save(category);
 	}
-
+	
 	@Override
 	public Category updateCategory(Category category, long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Category existingCategory = categoryRepository.findById(id).orElseThrow(() -> 
+		new ResourceNotFoundException("Category", "Id", id));
+		if(!category.getName().equals("")){
+			existingCategory.setName(category.getName());
+		}
+		if(!category.getStatus().equals("")){
+			existingCategory.setStatus(category.getStatus());
+		}
+		if(!category.getDescription().equals("")){
+			existingCategory.setDescription(category.getDescription());
+		}
+		categoryRepository.save(existingCategory);
+		return existingCategory;
 	}
 
+	
 	@Override
 	public void deleteCategory(long id) {
-		// TODO Auto-generated method stub
-		
+		categoryRepository.findById(id).orElseThrow(() -> 
+		new ResourceNotFoundException("Category", "Id", id));
+		categoryRepository.deleteById(id);
 	}
-
 }

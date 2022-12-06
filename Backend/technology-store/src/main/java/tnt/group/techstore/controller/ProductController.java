@@ -1,7 +1,6 @@
 package tnt.group.techstore.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,46 +15,47 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import tnt.group.techstore.model.Account;
-import tnt.group.techstore.model.Category;
-import tnt.group.techstore.service.CategoryService;
+import tnt.group.techstore.model.Product;
+import tnt.group.techstore.service.ProductService;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials="true")
 @RestController
-@RequestMapping("/api/category")
-public class CategoryController {
+@RequestMapping("/api/product")
+public class ProductController {
 	
 	@Autowired
-	private CategoryService categorySer;
-
+	ProductService proSer;
+	
 	@GetMapping("/viewall")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-	public List<Category> getAllCategorys(){
-		return categorySer.getAllCategorys();
-	}
-
-	@PostMapping("/create")
-	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<Category> createCategory(@RequestBody Category category){
-		return new ResponseEntity<Category>(categorySer.createCategory(category), HttpStatus.CREATED);
+	public ResponseEntity<List<Product>> getAllProduct(){
+		return new ResponseEntity<List<Product>>(proSer.getAllProducts(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-	public ResponseEntity<Category> getCategoryById(@PathVariable("id") long categoryId){
-		return new ResponseEntity<Category> (categorySer.getCategoryById(categoryId), HttpStatus.OK);
+	public ResponseEntity<Product> getProctById(@PathVariable("id") long id){
+		return new ResponseEntity<Product> (proSer.getProductById(id), HttpStatus.OK);
+	}
+	
+	@PostMapping("/createByCategory/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<Product> createProduct(@PathVariable("id") long id,@RequestBody Product product){
+		return new ResponseEntity<Product>(proSer.createProduct(product,id), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<Category> updateCategory(@PathVariable("id") long categoryId, @RequestBody Category category){
-		return new ResponseEntity<Category> (categorySer.updateCategory(category, categoryId), HttpStatus.OK);
+	public ResponseEntity<Product> updateProduct(@PathVariable("id") long id,
+			@RequestBody Product product){
+		return new ResponseEntity<Product> (proSer.updateProduct(product, id), HttpStatus.OK);
 	}
-
+	
 	@DeleteMapping("/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<String> deleteSuppiler(@PathVariable("id") long categoryId){
-		categorySer.deleteCategory(categoryId);
-		return new ResponseEntity<String> ("Delete Category successfully!.", HttpStatus.OK);
+	public ResponseEntity<String> deleteProduct(@PathVariable("id") long id){
+		proSer.deleteProduct(id);
+		return new ResponseEntity<String> ("Delete Product successfully!.", HttpStatus.OK);
 	}
+
 }
