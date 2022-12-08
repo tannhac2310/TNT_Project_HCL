@@ -3,6 +3,7 @@ import { ProductService } from '../../service/product/product.service';
 import { OrderService } from '../../service/order/order.service';
 import { StorageService } from 'src/app/service/storage/storage.service';
 import { CustomerService } from '../../service/customer/customer.service';
+import { AuthService } from 'src/app/service/auth/auth.service';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -13,7 +14,8 @@ export class CartComponent implements OnInit {
     private productService: ProductService,
     private orderSerVice: OrderService,
     private storageService: StorageService,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private authService: AuthService
   ) {}
   errorMessage = '';
   products: any[] = [];
@@ -25,6 +27,13 @@ export class CartComponent implements OnInit {
     address: null,
     phone: null,
   };
+  //for user
+  isLoggedIn = false;
+  isAdmin = false;
+  isUser = false;
+
+  //
+
   ngOnInit(): void {
     this.products = JSON.parse(localStorage.getItem('cart_items') as any) || [];
     for (var product of this.products) {
@@ -44,6 +53,16 @@ export class CartComponent implements OnInit {
         this.errorMessage = err.error.message;
       },
     });
+    if (this.storageService.isLoggedIn()) {
+      this.isLoggedIn = true;
+      if (this.storageService.getUser().role[0] === 'ROLE_ADMIN') {
+        this.isAdmin = true;
+        this.isUser = false;
+      } else {
+        this.isAdmin = false;
+        this.isUser = true;
+      }
+    }
   }
   removeFromCart(product: any) {
     this.productService.removeProduct(product);
