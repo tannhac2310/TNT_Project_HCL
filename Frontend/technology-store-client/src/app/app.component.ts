@@ -6,7 +6,7 @@ import { CartService } from './service/storage/cart.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'electronic-store-project-client';
+  title = 'technology-tntstore-project-client';
 
   constructor(public cartService: CartService) {}
 
