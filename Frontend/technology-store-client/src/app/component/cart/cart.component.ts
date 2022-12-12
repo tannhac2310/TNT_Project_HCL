@@ -21,6 +21,7 @@ export class CartComponent implements OnInit {
   products: any[] = [];
   productPrice = 0;
   subTotal = 0;
+  changedSubtotal = 0;
   customer: any = {};
   amount = 1;
   info: any = {
@@ -31,16 +32,13 @@ export class CartComponent implements OnInit {
   isLoggedIn = false;
   isAdmin = false;
   isUser = false;
-
-  //
-
   ngOnInit(): void {
-    this.products = JSON.parse(localStorage.getItem('cart_items') as any) || [];
+    this.products = [...this.productService.getProduct()];
     for (var product of this.products) {
-      const amount = this.amount;
+      const amount = product.amount;
       const productPrice = amount * product.price;
       this.productPrice = productPrice;
-      this.subTotal = this.subTotal + productPrice;
+      this.subTotal = this.subTotal + this.productPrice;
     }
     const id = this.storageService.getUser().id;
     this.customerService.getCustomerByIdAccount(id).subscribe({
@@ -71,9 +69,22 @@ export class CartComponent implements OnInit {
     console.log(this.products);
   }
   changeSubtotal(product: any) {
-    const qty = product.quantity;
-    const amt = product.price;
-    this.subTotal = amt * qty;
+    this.subTotal = 0;
+    for (var p of this.products) {
+      if (p.id === product.id) {
+        console.log('==========xxxxxxxxx');
+        console.log(product);
+        const qty = product.amount;
+        const price = product.price;
+        this.productPrice = qty * price;
+        this.subTotal += this.productPrice;
+      } else {
+        console.log('==========');
+        console.log(p);
+        this.productPrice = p.amount * p.price;
+        this.subTotal += this.productPrice;
+      }
+    }
 
     this.productService.saveCart();
   }
@@ -82,7 +93,7 @@ export class CartComponent implements OnInit {
     let orderDetail: any = [];
 
     for (var product of this.products) {
-      const amount = this.amount;
+      const amount = product.amount;
       const productPrice = amount * product.price;
       let odd: any = { amount, productPrice, product };
       this.productPrice = productPrice;
@@ -90,7 +101,11 @@ export class CartComponent implements OnInit {
       orderDetail.push(odd);
     }
     const { address, phone } = this.info;
-    if (address != '' && phone != '') {
+    if (address === null) {
+      this.errorMessage = 'Address is required';
+    } else if (phone === null) {
+      this.errorMessage = 'Phone is required';
+    } else if (address !== null && phone !== null) {
       this.orderSerVice
         .createOrder(address, phone, this.customer, orderDetail)
         .subscribe({
@@ -102,6 +117,6 @@ export class CartComponent implements OnInit {
           },
           error: (err) => {},
         });
-    } else this.errorMessage = 'Please fill info';
+    }
   }
 }

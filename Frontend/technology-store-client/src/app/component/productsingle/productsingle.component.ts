@@ -10,10 +10,15 @@ export class ProductsingleComponent implements OnInit {
   product: any = {};
   errorMessage = '';
   pros: any[] = [];
+  quantity = 1;
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute
   ) {}
+
+  form: any = {
+    quantity: null,
+  };
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -30,12 +35,26 @@ export class ProductsingleComponent implements OnInit {
   }
 
   addToCart(product: any) {
+    //return this.quantity;
     if (!this.productService.productInCart(product)) {
-      //product.quantity = 1;
+      product.amount = this.quantity;
       this.productService.addToCart(product);
-      this.pros = [...this.productService.getProduct()];
-      alert('Add to cart successful!');
-      //this.subTotal = product.price;
+      alert('Add to cart successfully!');
+    } else {
+      product.amount = this.quantity;
+      this.productService.updateProduct(
+        product.name,
+        product.price,
+        product.image,
+        product.amount,
+        product.status,
+        product.description,
+        product.saleOff,
+        product.Id
+      );
+      alert('Update successfully!');
     }
+
+    this.pros = [...this.productService.getProduct()];
   }
 }

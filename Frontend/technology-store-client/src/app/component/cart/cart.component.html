@@ -18,7 +18,7 @@
   </div>
 </section>
 
-<section class="cart shopping page-wrapper">
+<section class="cart shopping page-wrapper" *ngIf="products.length != 0">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-12">
@@ -42,12 +42,13 @@
               <tbody>
                 <tr class="cart_item" *ngFor="let product of products">
                   <td class="product-thumbnail" data-title="Thumbnail">
-                    <a routerLink="/product-single"
-                      ><img
+                    <a routerLink="/product-single">
+                      <img
                         src="{{ product.image }}"
                         class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
                         alt=""
-                    /></a>
+                      />
+                    </a>
                   </td>
 
                   <td class="product-name" data-title="Product">
@@ -55,11 +56,12 @@
                   </td>
 
                   <td class="product-price" data-title="Price">
-                    <span class="amount"
-                      ><span class="currencySymbol">
-                        <pre wp-pre-tag-3=""></pre></span
-                      >{{ product.price }}</span
-                    >
+                    <span class="amount">
+                      <span class="currencySymbol">
+                        <pre wp-pre-tag-3=""></pre>
+                      </span>
+                      {{ product.price }}
+                    </span>
                   </td>
                   <td class="product-quantity" data-title="Quantity">
                     <div class="quantity">
@@ -67,10 +69,10 @@
                       <input
                         min="1"
                         type="number"
-                        value="{{ amount }}"
+                        value="{{ product.amount }}"
                         name=""
                         class="form-control w-25"
-                        [(ngModel)]="amount"
+                        [(ngModel)]="product.amount"
                         [ngModelOptions]="{ standalone: true }"
                         (change)="changeSubtotal(product)"
                       />
@@ -79,9 +81,10 @@
                   <td class="product-subtotal" data-title="Total">
                     <span class="amount">
                       <span class="currencySymbol">
-                        <pre wp-pre-tag-3=""></pre></span
-                      >{{ product.price }}</span
-                    >
+                        <pre wp-pre-tag-3=""></pre>
+                      </span>
+                      {{ product.price * product.amount }}
+                    </span>
                   </td>
                   <td class="product-remove" data-title="Remove">
                     <button
@@ -120,10 +123,11 @@
                 name="phone"
                 [(ngModel)]="info.phone"
                 #info.phone="ngModel"
+                required
                 type="text"
                 class="form-control"
                 id="last_name"
-                placeholder=""
+                value="{{ customer.phone }}"
               />
             </div>
           </div>
@@ -134,10 +138,11 @@
                 name="address"
                 [(ngModel)]="info.address"
                 #info.address="ngModel"
+                required
                 type="text"
                 class="form-control"
                 id="company_name"
-                placeholder=""
+                value="{{ customer.address }}"
               />
             </div>
           </div>
@@ -158,6 +163,18 @@
         </button>
         <small class="text-danger text-center">{{ errorMessage }}</small>
       </form>
+    </div>
+  </div>
+</section>
+
+<section class="cart shopping page-wrapper" *ngIf="products.length == 0">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-12"></div>
+      <h3>
+        Cart is empty :-))
+        <a routerLink="/product">Shop Now</a>
+      </h3>
     </div>
   </div>
 </section>

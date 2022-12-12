@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
           //console.log(data);
           this.isSuccessful = true;
           this.isLoginFailed = false;
-          window.location.reload();
+          this._route.navigate(['/product']);
         },
         error: (err) => {
           this.errorMessage = err.error.message;

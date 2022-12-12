@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from 'src/app/service/category/category.service';
 import { ProductService } from '../../service/product/product.service';
 import { CartService } from '../../service/storage/cart.service';
-//import {Product} from '../../mock-test/product'
+
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -65,11 +65,24 @@ export class ProductComponent implements OnInit {
 
   addToCart(product: any) {
     if (!this.productService.productInCart(product)) {
-      //product.quantity = 1;
+      product.amount = 1;
       this.productService.addToCart(product);
-      this.pros = [...this.productService.getProduct()];
-      alert('Add to cart successful!');
-      //this.subTotal = product.price;
+      alert('Add to cart successfully!');
+    } else {
+      product.amount += 1;
+      this.productService.updateProduct(
+        product.name,
+        product.price,
+        product.image,
+        product.amount,
+        product.status,
+        product.description,
+        product.saleOff,
+        product.Id
+      );
+      alert('Update successfully!');
     }
+
+    this.pros = [...this.productService.getProduct()];
   }
 }
